@@ -1,0 +1,11 @@
+Model Information:
+* title:	'33 Ford Hot rod - Low poly model
+* source:	https://sketchfab.com/3d-models/33-ford-hot-rod-low-poly-model-1d7124aecbe44c6e9faeefb9df8255df
+* author:	Daniel Zhabotinsky (https://sketchfab.com/DanielZhabotinsky)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "'33 Ford Hot rod - Low poly model" (https://sketchfab.com/3d-models/33-ford-hot-rod-low-poly-model-1d7124aecbe44c6e9faeefb9df8255df) by Daniel Zhabotinsky (https://sketchfab.com/DanielZhabotinsky) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

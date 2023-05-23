@@ -8,11 +8,15 @@ import Parts from '../img/parts.jpg';
 
 import Navbar from './Navbar';
 import SparePartData from '../data/SparepartData';
+import Example3DModel from './Example3DModel';
 
 import PDFViewer from 'pdf-viewer-reactjs';
 
 
 const SparepartPages = () => {
+  const exampleModel = () => {
+    window.open('/example')
+  }
   return (
     <div>
         <Navbar />
@@ -48,6 +52,7 @@ const SparepartPages = () => {
                   </ul>
                 )
               }
+              <Link component='button' variant='body2' onClick={exampleModel}>EXAMPLE 3D MODEL VIEWER</Link>
             </CardContent>
           </Card>
         </Container>
