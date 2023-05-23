@@ -30,10 +30,10 @@ const Example3DModel = () => {
         </Canvas>
         <Container sx={{mt: 2}}>
           <ul>
-            <li>1. Bearing</li>
-            <li>2. Gear</li>
-            <li>3. Spring</li>
-            <li>4. Bolt</li>
+            <li>1. Bearing  P/N: 123840</li>
+            <li>2. Gear  P/N: 671397</li>
+            <li>3. Spring P/N: 248862</li>
+            <li>4. Bolt  P/N: 831694</li>
           </ul>
         </Container>
 
