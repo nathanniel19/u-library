@@ -1,0 +1,11 @@
+Model Information:
+* title:	Eje Manguito Protector
+* source:	https://sketchfab.com/3d-models/eje-manguito-protector-4a68aa081db54c6ba5fb3eba7b07f1ed
+* author:	sala3dart (https://sketchfab.com/sala3dart)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Eje Manguito Protector" (https://sketchfab.com/3d-models/eje-manguito-protector-4a68aa081db54c6ba5fb3eba7b07f1ed) by sala3dart (https://sketchfab.com/sala3dart) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

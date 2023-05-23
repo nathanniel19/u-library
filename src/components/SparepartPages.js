@@ -52,7 +52,7 @@ const SparepartPages = () => {
                   </ul>
                 )
               }
-              <Link component='button' variant='body2' onClick={exampleModel}>EXAMPLE 3D MODEL VIEWER</Link>
+              <Link component='button' variant='body2' onClick={exampleModel}>MECHANICAL COMPONENT</Link>
             </CardContent>
           </Card>
         </Container>
