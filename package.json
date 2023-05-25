@@ -13,6 +13,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/three": "^0.152.0",
+    "firebase": "^9.22.0",
     "pdf-viewer-reactjs": "^2.2.3",
     "react": "^18.2.0",
     "react-3d-viewer": "^1.0.12",
