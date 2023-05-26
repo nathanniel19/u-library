@@ -1,4 +1,4 @@
-import React from 'react';
+import { React } from 'react';
 
 import { Container, Typography } from '@mui/material';
 import { Card, CardActions, CardContent, CardMedia } from '@mui/material';
@@ -7,12 +7,11 @@ import { Button } from '@mui/material';
 
 import Navbar from './Navbar';
 import ProblemTables from './ProblemTables';
+import DialogUploadProblem from './DialogUploadProblem';
 
 import Report from '../img/report.jpg';
 
-const testMessage = () => {
-  console.log('kepencet')
-}
+
 
 const ProblemListPages = () => {
   return (
@@ -29,9 +28,10 @@ const ProblemListPages = () => {
             <CardContent>
               <Typography sx={{textAlign: 'center', fontWeight: 600}} variant='h5'>Problem List</Typography>
               <Container sx={{}}>
-                <Button variant='contained' sx={{justifyItems: 'right'}} onClick={testMessage}>Submit Problem</Button>
+                <DialogUploadProblem />
               </Container>
               <ProblemTables />
+              
             </CardContent>
           </Card>
             

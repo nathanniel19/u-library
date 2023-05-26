@@ -1,34 +1,26 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { Paper } from '@mui/material';
+import { Button } from '@mui/material';
 
 import storage from '../firebase/firebaseconfig';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
-
-const gsReference = ref(storage, 'UnitDocumentation/TH 5.5.pdf');
-
-const cliked = () => {
-    getDownloadURL(gsReference)
-        .then((url) => {
-            
-            const xhr = new XMLHttpRequest();
-            xhr.responseType = 'blob';
-            xhr.onload = (event) => {
-              const blob = xhr.response;
-            };
-            xhr.open('GET', url);
-            xhr.send();
-        })
-        .catch((error)=>{
-            console.log('error')
-        })
-
+const downloadButtonCANBUS = () => {
+    const storageRef = ref(storage, 'gs://u-library-68864.appspot.com/ProblemList/CAN Bus Architecture TH.pdf')
+    getDownloadURL(storageRef).then((url) =>{
+        window.open(url);
+    })
 }
 
-const urlView = () => {
-    window.open('https://firebasestorage.googleapis.com/v0/b/u-library-68864.appspot.com/o/UnitDocumentation%2FTH%205.5.pdf?alt=media&token=94274884-22c2-47b9-973f-94c6415c1cde')
+const downloadDiagnosticTH = () => {
+    const storageRef = ref(storage, 'gs://u-library-68864.appspot.com/ProblemList/Diagnostic TH.pdf');
+    getDownloadURL(storageRef).then((url) => {
+        window.open(url);
+    })
 }
+
+
 
 const ProblemTables = () => {
   return (
@@ -41,14 +33,36 @@ const ProblemTables = () => {
                         <TableCell align='right'>Brand</TableCell>
                         <TableCell align='right'>Model Unit</TableCell>
                         <TableCell align='right'>Problem</TableCell>
+                        <TableCell align='right'>View/Download</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    
+                    <TableRow>
+                        <TableCell align='right'>1</TableCell>
+                        <TableCell align='right'>MAGNI</TableCell>
+                        <TableCell align='right'>TH 6.20</TableCell>
+                        <TableCell align='right'>CAN BUS Architecture</TableCell>
+                        <TableCell align='right'>
+                            <Button variant='contained' size='small' onClick={downloadButtonCANBUS}>
+                                View File
+                            </Button>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell align='right'>2</TableCell>
+                        <TableCell align='right'>MAGNI</TableCell>
+                        <TableCell align='right'>TH 6.20</TableCell>
+                        <TableCell align='right'>Diagnostic TH</TableCell>
+                        <TableCell align='right'>
+                            <Button variant='contained' size='small' onClick={downloadDiagnosticTH}>
+                                View File
+                            </Button>
+                        </TableCell>
+                    </TableRow>
                 </TableBody>
             </Table>
         </TableContainer>
-        <Typography variant='body1' sx={{mt:2}} onClick={urlView}>Test</Typography>
+        
 
     </div>
   )
