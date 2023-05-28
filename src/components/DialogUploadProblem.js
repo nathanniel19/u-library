@@ -5,6 +5,14 @@ import { Button } from '@mui/material';
 import { Input } from '@mui/material';
 import { Container } from '@mui/material';
 
+import { doc, addDoc, collection } from 'firebase/firestore';
+import { db } from '../firebase/firebaseconfig'; 
+
+const initialValue = {
+    mail: '',
+    pass: '',
+};
+
 const DialogUploadProblem = () => {
     //Dialog
     const [open, setOpen] = useState(false);
@@ -15,22 +23,37 @@ const DialogUploadProblem = () => {
         setOpen(false);
     };
 
-    //SetModel
-    const [model, setModel] = useState('Magni');
-    const handleChange = (e) => {
-        setModel(e.target.value);
+    //SubmitData
+    const [values, setValues] = useState(initialValue);
+    const handleInputChange = (e) => {
+        const {name, value} = e.target;
+        setValues({
+            ...values,
+            [name]: value,
+        });
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try
+        {
+            const docRef = await addDoc(collection(db, "test"),
+            {
+                mail: values.mail,
+                pass: values.pass,
+            })
+            handleClose();
+            alert("Document Uploaded");
+        }
+        catch (e)
+        {
+            console.error(e);
+            alert(e);
+        }
+        
+        
     }
 
-    //SetFiles
-    const [file, setFiles] = useState();
-    const handleFileChange = (e) => {
-        setFiles(e.target.files[0])
-    };
-    const handleUploadClick = () => {
-        if(!file){
-            return;
-        }
-    }
+   
 
   return (
     <div>
@@ -39,27 +62,33 @@ const DialogUploadProblem = () => {
             <DialogTitle>Submit Problem</DialogTitle>
             <DialogContent>
                 <DialogContentText>Submit Problem of unit.</DialogContentText>
-                <FormControl fullWidth sx={{mt: 4}}>
-                    <InputLabel>Model Unit</InputLabel>
-                    <Select
-                        label='Model Unit'
-                        onChange={handleChange}
-                    >
-                        <MenuItem value={1}>Magni</MenuItem>
-                        <MenuItem value={2}>Yale</MenuItem>
-                    </Select>
-                </FormControl>
-                <TextField
-                    autoFocus
-                    margin='dense'
-                    label='Model Unit'
-                    variant='standard'
-                />
-                <Container sx={{mt: 4}}>
-                    <input type='file' onChange={handleFileChange} />
-                </Container>
-                
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        name='mail'
+                        label='mail'
+                        fullWidth
+                        variant="standard"
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        name='pass'
+                        label='pass'
+                        fullWidth
+                        variant="standard"
+                        onChange={handleInputChange}
+                    
+                    />
+                </form>
             </DialogContent>
+            
+            <DialogActions>
+                <Button variant='contained' size='small' onClick={handleClose}>Close</Button>
+                <Button variant='contained' size='small' type='submit' onClick={handleSubmit}>Submit</Button>
+            </DialogActions>
         </Dialog>
     </div>
   )

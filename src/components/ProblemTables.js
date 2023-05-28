@@ -1,10 +1,12 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { Paper } from '@mui/material';
 import { Button } from '@mui/material';
 
-import storage from '../firebase/firebaseconfig';
+import { storage } from '../firebase/firebaseconfig';
+import { db } from '../firebase/firebaseconfig';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { getDocs, collection, doc } from 'firebase/firestore';
 
 const downloadButtonCANBUS = () => {
     const storageRef = ref(storage, 'gs://u-library-68864.appspot.com/ProblemList/CAN Bus Architecture TH.pdf')
@@ -22,9 +24,25 @@ const downloadDiagnosticTH = () => {
 
 
 
+
 const ProblemTables = () => {
+    const [mail, setMail] = useState([]);
+    const [pass, setPass] = useState([]);
+    const dataFirebase = async () => {
+        const querySnapshot =  await getDocs(collection(db, "test"));
+        querySnapshot.forEach((doc) => {
+            setMail(current => [...current, doc.data().mail]);
+            setPass(current => [...current, doc.data().pass]);
+        });
+    }
+
+    
+
+    
   return (
     <div>
+        <Button variant='outlined'>Test</Button>
+        
         <TableContainer component={Paper} sx={{mt: 2}}>
             <Table>
                 <TableHead>
