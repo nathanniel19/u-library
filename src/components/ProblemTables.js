@@ -31,21 +31,35 @@ const ProblemTables = () => {
     const [problems, setProblems] = useState([]);
     const [ids, setIds] = useState([]);
 
+    const [datas, setDatas] = useState([]);
+
     useEffect(()=>{
         const dataFirebase = async () => {
-            const querySnapshot =  await getDocs(collection(db, "test"));
-            querySnapshot.forEach((doc) => {
-                setBrands(current => [...current, doc.data().brand]);
-                setModels(current => [...current, doc.data().model]);
-                setProblems(current => [...current, doc.data().problem])
-                setIds(current => [...current, doc.id]);
+            try {
+                
+                const querySnapshot =  await getDocs(collection(db, "test"));
+                querySnapshot.forEach((doc) => {
+                
+                setDatas(current => [...current, doc.data()])
+                setIds(current => [...current, doc.id])
             });
         }
+        catch(error) {
+            console.log(error)
+        }
+        }
         dataFirebase();
-    }, []);
+        console.log(datas.keys)
+    },[]);
   return (
     <div>
         <Button variant='outlined'>Test</Button>
+        {datas.map((data)=>
+            <>
+                <ul>
+                    <li >{data.problem}</li>
+                </ul>
+            </>)} 
         <TableContainer component={Paper} sx={{mt: 2, mb: 2}}>
             <Table>
                 <TableHead>
@@ -57,18 +71,7 @@ const ProblemTables = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow>
-                        {ids.map((id)=><TableCell align='right'>{id}</TableCell>)}
-                    </TableRow>
-                    <TableRow>
-                        {brands.map((brand)=><TableCell align='right'>{brand}</TableCell>)}
-                    </TableRow>
-                    <TableRow>
-                        {models.map((model)=><TableCell align='right'>{model}</TableCell>)}
-                    </TableRow>
-                    <TableRow>
-                        {problems.map((problem)=><TableCell align='right'>{problem}</TableCell>)}
-                    </TableRow>
+                       
                     
                 </TableBody>
             </Table>
