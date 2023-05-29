@@ -38,8 +38,9 @@ const DialogUploadProblem = () => {
         {
             const docRef = await addDoc(collection(db, "test"),
             {
-                mail: values.mail,
-                pass: values.pass,
+                brand: values.brand,
+                model: values.model,
+                problem: values.problem,
             })
             handleClose();
             alert("Document Uploaded");
@@ -66,8 +67,8 @@ const DialogUploadProblem = () => {
                     <TextField
                         autoFocus
                         margin="dense"
-                        name='mail'
-                        label='mail'
+                        name='brand'
+                        label='Brand'
                         fullWidth
                         variant="standard"
                         onChange={handleInputChange}
@@ -75,12 +76,20 @@ const DialogUploadProblem = () => {
                     <TextField
                         autoFocus
                         margin="dense"
-                        name='pass'
-                        label='pass'
+                        name='model'
+                        label='Model'
                         fullWidth
                         variant="standard"
                         onChange={handleInputChange}
-                    
+                    />
+                    <TextField
+                        autoFocus
+                        margin='dense'
+                        name='problem'
+                        label='Problem'
+                        fullWidth
+                        variant='standard'
+                        onChange={handleInputChange}
                     />
                 </form>
             </DialogContent>
