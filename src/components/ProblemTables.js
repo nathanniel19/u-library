@@ -53,68 +53,34 @@ const ProblemTables = () => {
     },[]);
   return (
     <div>
-        <Button variant='outlined'>Test</Button>
-        {datas.map((data)=>
-            <>
-                <ul>
-                    <li >{data.problem}</li>
-                </ul>
-            </>)} 
+        
         <TableContainer component={Paper} sx={{mt: 2, mb: 2}}>
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>No.</TableCell>
                         <TableCell align='right'>Brand</TableCell>
                         <TableCell align='right'>Model</TableCell>
-                        <TableCell align='right'>Problem</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                       
-                    
-                </TableBody>
-            </Table>
-        </TableContainer>
-        <TableContainer component={Paper} sx={{mt: 2}}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>No.</TableCell>
-                        <TableCell align='right'>Brand</TableCell>
-                        <TableCell align='right'>Model Unit</TableCell>
                         <TableCell align='right'>Problem</TableCell>
                         <TableCell align='right'>View/Download</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow>
-                        <TableCell align='right'>1</TableCell>
-                        <TableCell align='right'>MAGNI</TableCell>
-                        <TableCell align='right'>TH 6.20</TableCell>
-                        <TableCell align='right'>CAN BUS Architecture</TableCell>
-                        <TableCell align='right'>
-                            <Button variant='contained' size='small' onClick={downloadButtonCANBUS}>
-                                View File
-                            </Button>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell align='right'>2</TableCell>
-                        <TableCell align='right'>MAGNI</TableCell>
-                        <TableCell align='right'>TH 6.20</TableCell>
-                        <TableCell align='right'>Diagnostic TH</TableCell>
-                        <TableCell align='right'>
-                            <Button variant='contained' size='small' onClick={downloadDiagnosticTH}>
-                                View File
-                            </Button>
-                        </TableCell>
-                    </TableRow>
+                    {datas.map((data)=>
+                        <>
+                            <TableRow key={data.id}>
+                                <TableCell align='right'>{data.brand}</TableCell>
+                                <TableCell align='right'>{data.model}</TableCell>
+                                <TableCell align='right'>{data.problem}</TableCell>
+                                <TableCell align='right'>
+                                    <Button variant='contained' size='small' onClick={null}>
+                                        View File
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        </>)} 
                 </TableBody>
             </Table>
         </TableContainer>
-        
-
     </div>
   )
 }

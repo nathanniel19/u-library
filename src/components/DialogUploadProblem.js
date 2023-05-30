@@ -32,8 +32,7 @@ const DialogUploadProblem = () => {
             [name]: value,
         });
     }
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
         try
         {
             const docRef = await addDoc(collection(db, "test"),
@@ -44,6 +43,7 @@ const DialogUploadProblem = () => {
             })
             handleClose();
             alert("Document Uploaded");
+            window.location.reload();
         }
         catch (e)
         {
