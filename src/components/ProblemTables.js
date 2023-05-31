@@ -32,6 +32,7 @@ const ProblemTables = () => {
     const [ids, setIds] = useState([]);
 
     const [datas, setDatas] = useState([]);
+    
 
     useEffect(()=>{
         const dataFirebase = async () => {
@@ -42,6 +43,8 @@ const ProblemTables = () => {
                 
                 setDatas(current => [...current, doc.data()])
                 setIds(current => [...current, doc.id])
+
+                
             });
         }
         catch(error) {
@@ -49,7 +52,7 @@ const ProblemTables = () => {
         }
         }
         dataFirebase();
-        console.log(datas.keys)
+        console.log('')
     },[]);
   return (
     <div>
@@ -60,7 +63,7 @@ const ProblemTables = () => {
                     <TableRow>
                         <TableCell align='right'>Brand</TableCell>
                         <TableCell align='right'>Model</TableCell>
-                        <TableCell align='right'>Problem</TableCell>
+                        <TableCell align='right'>Problem Title</TableCell>
                         <TableCell align='right'>View/Download</TableCell>
                     </TableRow>
                 </TableHead>

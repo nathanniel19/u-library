@@ -6,11 +6,14 @@ import { Input } from '@mui/material';
 import { Container } from '@mui/material';
 
 import { doc, addDoc, collection } from 'firebase/firestore';
-import { db } from '../firebase/firebaseconfig'; 
+import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { db, storage } from '../firebase/firebaseconfig'; 
 
 const initialValue = {
-    mail: '',
-    pass: '',
+    brand: '',
+    model: '',
+    problem: '',
+    file: [],
 };
 
 const DialogUploadProblem = () => {
@@ -25,12 +28,17 @@ const DialogUploadProblem = () => {
 
     //SubmitData
     const [values, setValues] = useState(initialValue);
+    const [brand, setBrand] = useState(initialValue.brand);
     const handleInputChange = (e) => {
         const {name, value} = e.target;
         setValues({
             ...values,
             [name]: value,
         });
+    }
+    const handleSelectChange = (e) => {
+        setBrand(e.target.value)
+
     }
     const handleSubmit = async () => {
         try
@@ -40,10 +48,17 @@ const DialogUploadProblem = () => {
                 brand: values.brand,
                 model: values.model,
                 problem: values.problem,
+            });
+            const fileRef = ref(storage, values.file);
+            uploadBytes(fileRef, values.file).then((snapshot) => {
+                console.log('upload sucess')
             })
+            
+
             handleClose();
             alert("Document Uploaded");
             window.location.reload();
+            console.log(values)
         }
         catch (e)
         {
@@ -64,15 +79,17 @@ const DialogUploadProblem = () => {
             <DialogContent>
                 <DialogContentText>Submit Problem of unit.</DialogContentText>
                 <form onSubmit={handleSubmit}>
-                    <TextField
-                        autoFocus
-                        margin="dense"
+                    <Select
                         name='brand'
-                        label='Brand'
-                        fullWidth
-                        variant="standard"
+                        value={values.brand}
+                        label='Select Brand'
+                        sx={{width: 550}}
                         onChange={handleInputChange}
-                    />
+                    >
+                        <MenuItem value='Magni'>Magni</MenuItem>
+                        <MenuItem value='Yale'>Yale</MenuItem>
+                        <MenuItem value='Sennebogen'>Sennebogen</MenuItem>
+                    </Select>
                     <TextField
                         autoFocus
                         margin="dense"
@@ -91,6 +108,7 @@ const DialogUploadProblem = () => {
                         variant='standard'
                         onChange={handleInputChange}
                     />
+                    <Input type='file' sx={{mt: 2}} name='file' onChange={handleInputChange} />
                 </form>
             </DialogContent>
             
