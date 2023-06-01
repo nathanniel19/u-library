@@ -6,14 +6,14 @@ import { Input } from '@mui/material';
 import { Container } from '@mui/material';
 
 import { doc, addDoc, collection } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../firebase/firebaseconfig'; 
 
 const initialValue = {
     brand: '',
     model: '',
     problem: '',
-    file: [],
+    url: ''
 };
 
 const DialogUploadProblem = () => {
@@ -28,7 +28,12 @@ const DialogUploadProblem = () => {
 
     //SubmitData
     const [values, setValues] = useState(initialValue);
-    const [brand, setBrand] = useState(initialValue.brand);
+    const [files, setFiles] = useState(null);
+
+
+    const handleFileChange = (e) => {
+        setFiles(e.target.files[0]);
+    }
     const handleInputChange = (e) => {
         const {name, value} = e.target;
         setValues({
@@ -36,41 +41,45 @@ const DialogUploadProblem = () => {
             [name]: value,
         });
     }
-    const handleSelectChange = (e) => {
-        setBrand(e.target.value)
-
-    }
+    
+    const [progressPercent, setProgressPercent] = useState(0);
     const handleSubmit = async () => {
         try
         {
-            const docRef = await addDoc(collection(db, "test"),
+            const storageRef = ref(storage, 'problemList/' + files.name);
+            uploadBytes(storageRef, files)
+                .then((snapshot) => {
+                    const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                    setProgressPercent(progress);
+                    console.log(progress)
+                    alert("Document Uploaded");
+                    getDownloadURL(snapshot.ref).then(downloadURL => {
+                        setValues({...values, url: downloadURL})
+                        console.log(downloadURL)
+                    })
+                });
+                
+            const docRef = await addDoc(collection(db, "problemList"),
             {
                 brand: values.brand,
                 model: values.model,
                 problem: values.problem,
+                url: values.url
             });
-            const fileRef = ref(storage, values.file);
-            uploadBytes(fileRef, values.file).then((snapshot) => {
-                console.log('upload sucess')
-            })
-            
 
-            handleClose();
-            alert("Document Uploaded");
-            window.location.reload();
+            
             console.log(values)
+            handleClose();
+            
+            //window.location.reload();
+            
         }
         catch (e)
         {
             console.error(e);
             alert(e);
         }
-        
-        
     }
-
-   
-
   return (
     <div>
         <Button variant='contained' onClick={handleClickOpen}>Submit Problem</Button>
@@ -108,7 +117,7 @@ const DialogUploadProblem = () => {
                         variant='standard'
                         onChange={handleInputChange}
                     />
-                    <Input type='file' sx={{mt: 2}} name='file' onChange={handleInputChange} />
+                    <Input type='file' sx={{mt: 2}} name='file' onChange={handleFileChange} />
                 </form>
             </DialogContent>
             

@@ -37,14 +37,10 @@ const ProblemTables = () => {
     useEffect(()=>{
         const dataFirebase = async () => {
             try {
-                
-                const querySnapshot =  await getDocs(collection(db, "test"));
+                const querySnapshot =  await getDocs(collection(db, "problemList"));
                 querySnapshot.forEach((doc) => {
-                
                 setDatas(current => [...current, doc.data()])
                 setIds(current => [...current, doc.id])
-
-                
             });
         }
         catch(error) {
@@ -52,8 +48,11 @@ const ProblemTables = () => {
         }
         }
         dataFirebase();
-        console.log('')
     },[]);
+
+    const downloadButtonClick = (e) => {
+
+    }
   return (
     <div>
         
@@ -75,7 +74,7 @@ const ProblemTables = () => {
                                 <TableCell align='right'>{data.model}</TableCell>
                                 <TableCell align='right'>{data.problem}</TableCell>
                                 <TableCell align='right'>
-                                    <Button variant='contained' size='small' onClick={null}>
+                                    <Button variant='contained' size='small' onClick={() => window.open(data.url)}>
                                         View File
                                     </Button>
                                 </TableCell>
